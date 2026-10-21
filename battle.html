@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DDTank HTML5 — Laboratório de Disparo</title>
+<style>
+:root{font:16px system-ui;color:#eff6ff;background:#0b1526}body{margin:0;padding:16px}main{max-width:1100px;margin:auto}
+h1{font-size:1.4rem}p{line-height:1.45}.game{background:#182744;border:1px solid #4c6687;border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;aspect-ratio:1000/540;touch-action:none}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:14px 0}
+button{padding:12px 16px;background:#274f75;color:white;border:1px solid #91afd0;border-radius:8px;cursor:pointer;font:inherit}
+button:focus-visible{outline:3px solid #ffdd70}output{font-variant-numeric:tabular-nums}
+small{color:#b9cfe4}a{color:#9ed6ff}
+</style></head><body><main>
+<h1>🎯 DDTank HTML5 — laboratório de disparo</h1>
+<p>Prévia de controles e trajetória, totalmente HTML5. <strong>Não é uma batalha conectada ao servidor.</strong></p>
+<div class="game"><canvas id="battle" width="1000" height="540" aria-label="Arena de testes de tiro"></canvas></div>
+<div class="controls">
+<button id="angleDown" type="button">− Ângulo</button><button id="angleUp" type="button">+ Ângulo</button>
+<button id="left" type="button">← Andar</button><button id="right" type="button">Andar →</button>
+<button id="fire" type="button">Segure para carregar; solte para disparar</button>
+<button id="reset" type="button">Reiniciar</button></div>
+<p id="readout" role="status"></p>
+<small>Teclado: W/S ou ↑/↓ ajustam o ângulo; A/D movem; segure e solte Espaço para controlar a força. Modelo local de demonstração, sujeito a substituição pelo protocolo e física originais.</small>
+<p><a href="/migration.html">Voltar ao salão</a></p>
+</main><script type="module" src="/src/battles/demo.ts"></script></body></html>
