@@ -59,5 +59,5 @@ export function hallLocation(item: HallItem): string | null {
 
 /** Resolve the legacy relative paths without modifying the original config. */
 export function hallAssetPath(path: string): string {
-  return `/${path.replace(/^\/+/, '')}`;
+  return `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`;
 }
