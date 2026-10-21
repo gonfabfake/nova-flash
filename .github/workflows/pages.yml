@@ -11,11 +11,8 @@ concurrency:
   group: pages-ddtank
   cancel-in-progress: true
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,11 +23,21 @@ jobs:
       - run: npm test
       - run: npm run build -- --base=/nova-flash/
       - run: node scripts/pages_assets.mjs
-      - uses: actions/configure-pages@v5
+      - uses: actions/upload-artifact@v4
         with:
-          enablement: true
+          name: ddtank-html5-preview
+          path: dist/
+          if-no-files-found: error
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: dist/
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
       - id: deployment
         uses: actions/deploy-pages@v4
