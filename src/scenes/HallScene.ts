@@ -53,6 +53,7 @@ export async function mountHall(
   let failed = 0;
   let destroyed = false;
   const buttonListeners: Array<() => void> = [];
+  let backgroundLoaded = false;
   const select = (id: string): void => {
     if (destroyed) return;
     const title = HALL_LOCATIONS[id] ?? id;
@@ -101,6 +102,7 @@ export async function mountHall(
   try {
     const backgroundTask = loadSprite('/assets/bg.png').then((background) => {
       if (!background) return;
+      backgroundLoaded = true;
       background.width = HALL_WIDTH;
       background.height = HALL_HEIGHT;
       background.zIndex = -1;
@@ -144,6 +146,8 @@ export async function mountHall(
       if (id) {
         node.eventMode = 'static';
         node.cursor = 'pointer';
+        node.on('pointerover', () => { if (!destroyed) { node.alpha = 0.86; app.render(); } });
+        node.on('pointerout', () => { if (!destroyed) { node.alpha = 1; app.render(); } });
         node.on('pointertap', () => select(id));
       } else {
         // Includes txt_* image labels: they must not intercept location taps.
@@ -152,6 +156,12 @@ export async function mountHall(
       scene.addChild(node);
     });
     await Promise.all([backgroundTask, ...tasks]);
+    if (!backgroundLoaded) {
+      // Show a visible fallback instead of a transparent black hall when the main image is absent.
+      const fallback = new Graphics().rect(0, 0, HALL_WIDTH, HALL_HEIGHT).fill(0x263c61);
+      fallback.zIndex = -2;
+      scene.addChild(fallback);
+    }
     imageStatus.textContent = `Imagens: ${loaded}/${loaded + failed}${failed ? ` • ${failed} indisponível(is)` : ''}`;
     resize();
     return { destroy, loaded, failed };
