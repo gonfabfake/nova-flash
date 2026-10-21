@@ -81,7 +81,7 @@ def prepare(source: Path, dest: Path, *, apply: bool = False,
     if apply:
         output = dest.parent / "migration" / "portable-assets.json"
         output.parent.mkdir(parents=True, exist_ok=True)
-        output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n",
+        output.write_text(json.dumps({"schemaVersion": 1, "resources": manifest}, ensure_ascii=False, indent=2) + "\n",
                           encoding="utf-8")
     return result
 
