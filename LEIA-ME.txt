@@ -1,0 +1,28 @@
+NOVA FLASH HTML5 — SALÃO v2
+
+ABRIR
+1. Extraia o ZIP.
+2. Abra index.html num navegador moderno.
+3. Use Tab para selecionar os locais, Enter para abrir, Esc para fechar.
+4. Ajustar recalcula o tamanho do salão; Tela cheia expande o aplicativo.
+
+ALTERAÇÕES
+- Interface com cabeçalho/rodapé responsivos.
+- Renderização dimensionada ao espaço disponível.
+- Camadas baseadas na ordem exportada do Flash.
+- 13 locais interativos com janela acessível e nomes legíveis.
+- Contador de carregamento de recursos e erros.
+- Evento hall:location para integrar ao jogo.
+- Interação por teclado, mouse e toque.
+
+INTEGRAÇÃO
+document.addEventListener('hall:location', event => {
+  console.log(event.detail.id, event.detail.title);
+  // Conectar ao roteamento e aos serviços reais do DDTank aqui.
+});
+
+IMPORTANTE
+Este pacote reproduz o Hall e seus hotspots, não o jogo ou backend.
+Não inclui autenticação, inventário, servidor de salas, batalha ou protocolo Flash.
+Os cliques mostram uma janela explicativa e emitem evento para conexão posterior.
+Imagens originais preservadas.

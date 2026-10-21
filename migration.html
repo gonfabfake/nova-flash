@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#090b10">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>DDTank</title>
+</head>
+<body>
+  <main id="game" aria-label="Salão DDTank"></main>
+  <div id="loading" role="status" aria-live="polite">Carregando…</div>
+  <button id="fullscreen" type="button" aria-label="Tela cheia" title="Tela cheia">⛶</button>
+  <dialog id="locationDialog" aria-labelledby="locationTitle">
+    <button id="closeLocation" type="button" aria-label="Fechar">×</button>
+    <h1 id="locationTitle"></h1>
+    <p>Este módulo ainda não está disponível.</p>
+  </dialog>
+  <script type="module" src="/src/game.ts"></script>
+</body>
+</html>

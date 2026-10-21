@@ -1,0 +1,11 @@
+node_modules/
+__pycache__/
+*.py[cod]
+dist/
+generated/
+*.sqlite*
+.env*
+!.env.example
+test-results/
+playwright-report/
+public/migration/catalog.json
