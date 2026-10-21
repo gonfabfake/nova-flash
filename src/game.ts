@@ -25,9 +25,16 @@ async function start() {
       document.getElementById('locationTitle')!.textContent = HALL_LOCATIONS[id] ?? id;
       if (!dialog.open) dialog.showModal();
     });
+    // Never leave a full-screen loading overlay blocking a partly rendered hall.
+    loading.hidden = true;
     if (hall.failed) {
-      loading.textContent = 'Algumas imagens não carregaram. Atualize a página para tentar novamente.';
-    } else loading.hidden = true;
+      console.warn(`Salão carregado com ${hall.failed} recurso(s) ausente(s).`);
+      const warning = document.createElement('p');
+      warning.id = 'hallAssetWarning';
+      warning.setAttribute('role', 'status');
+      warning.textContent = `${hall.failed} imagem(ns) não carregaram. Verifique os arquivos em assets/ e atualize a página.`;
+      host.after(warning);
+    }
     window.addEventListener('pagehide', event => { if (!event.persisted) hall.destroy(); });
     window.addEventListener('pageshow', event => { if (event.persisted) window.dispatchEvent(new Event('resize')); });
   } catch (error) {
