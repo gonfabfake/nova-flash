@@ -59,5 +59,5 @@ export default defineConfig({
   plugins: [localResources()],
   server: { host: '127.0.0.1', fs: { strict: true } },
   preview: { host: '127.0.0.1' },
-  build: { rollupOptions: { input: { migration: resolve('migration.html'), laboratorio: resolve('laboratorio.html'), battle: resolve('battle.html') } } },
+  build: { rollupOptions: { input: { migration: resolve('migration.html'), laboratorio: resolve('laboratorio.html'), battle: resolve('battle.html'), editor: resolve('editor.html') } } },
 });
