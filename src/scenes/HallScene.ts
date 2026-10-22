@@ -110,6 +110,7 @@ export async function mountHall(
     });
     const tasks = config.map(async (item, index) => {
       if (item.type !== 'symbol' && item.type !== 'text') return;
+      if (item.visible === false) return;
       const id = hallLocation(item);
       if (id) {
         const button = document.createElement('button');
@@ -141,6 +142,7 @@ export async function mountHall(
         });
       }
       node.position.set(finiteOr(item.tx, 0), finiteOr(item.ty, 0));
+      node.rotation = finiteOr(item.rotation, 0) * Math.PI / 180;
       node.zIndex = hallLayer(item, index);
       node.label = item.name ?? `hall-layer-${index}`;
       if (id) {
