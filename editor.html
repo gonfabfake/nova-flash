@@ -1,0 +1,33 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Editor Visual DDTank</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b1524;color:#e8f2ff;font:14px system-ui}header{padding:12px 18px;background:#18304d;font-size:20px;font-weight:700}
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr) 280px;min-height:calc(100vh - 50px)}aside{padding:15px;background:#12243b;overflow:auto}main{padding:12px;min-width:0}
+h2{font-size:16px;color:#f3cc72}input,select{width:100%;background:#0b1b2d;color:white;border:1px solid #537399;border-radius:5px;padding:8px}
+label{display:block;margin:9px 0 4px;font-size:12px;color:#bfd5ef}button{background:#284e77;color:white;border:1px solid #6488ad;border-radius:6px;padding:9px;cursor:pointer;margin:2px}button:hover{background:#356490}
+#objects{max-height:57vh;overflow:auto}#objects button{display:block;width:100%;text-align:left;font-size:12px}#objects .active{background:#88652b}
+#viewport{background:#080f1b;display:flex;align-items:center;justify-content:center;height:70vh;min-height:380px;overflow:hidden}
+#stage{flex:none;width:1000px;height:600px;position:relative;background:#263d64 url('/assets/bg.png') left top/100% 100% no-repeat;transform-origin:center}
+.sprite{position:absolute;transform-origin:0 0;cursor:move;touch-action:none;user-select:none}
+.sprite img{display:block;pointer-events:none}.sprite.selected{outline:2px dashed #fce37e}.sprite.error{min-width:65px;min-height:25px;border:1px dashed #f99;background:#7439}
+.actions{display:flex;flex-wrap:wrap;gap:4px;margin:7px 0}.pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#status{color:#ffdf94;min-height:25px}.hint{line-height:1.5;color:#bdd1e9;font-size:12px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}aside{max-height:none}#viewport{height:60vh}}
+</style></head><body><header>🎮 DDTank — Editor manual do salão</header>
+<div class="layout"><aside><h2>Elementos</h2><div class="actions"><button id="add">+ Imagem</button><button id="clone">Duplicar</button><button id="del">Remover</button></div>
+<label>Filtrar<input id="filter" placeholder="Pesquisar"></label><div id="objects"></div>
+<p class="hint">Arraste qualquer imagem no palco. Setas movem 1 pixel; Shift + setas movem 10.</p></aside>
+<main><div class="actions"><button id="fit">Ajustar</button><button id="plus">Zoom +</button><button id="minus">Zoom −</button><button id="save">Salvar no navegador</button><button id="restore">Restaurar</button><button id="import">Importar JSON</button><input id="upload" type="file" accept=".json" hidden></div>
+<div id="viewport"><div id="stage"></div></div><p id="status" role="status"></p>
+<div class="actions"><button id="json">Baixar projeto JSON</button><button id="config">Gerar config.js</button><button id="css">Gerar CSS</button><button id="actions">Gerar JS das funções</button></div>
+<p class="hint">Depois de editar, use os arquivos exportados. Substitua <code>js/config.js</code> pelo arquivo gerado. O JS de funções define eventos e navegação entre páginas, mas não conecta módulos que ainda não foram programados.</p></main>
+<aside><h2>Propriedades</h2>
+<label>Nome<input id="name"></label><label>Imagem (caminho do projeto)<input id="img"></label>
+<div class="pair"><div><label>X<input id="x" type="number" step=".1"></label></div><div><label>Y<input id="y" type="number" step=".1"></label></div></div>
+<div class="pair"><div><label>Escala X<input id="sx" type="number" step=".05"></label></div><div><label>Escala Y<input id="sy" type="number" step=".05"></label></div></div>
+<div class="pair"><div><label>Camada<input id="layer" type="number"></label></div><div><label>Rotação °<input id="rotation" type="number"></label></div></div>
+<label><input id="visible" type="checkbox" style="width:auto"> Mostrar objeto</label>
+<h2>Interação</h2><label>Ação ao clicar<select id="action"><option value="dialog">Abrir janela</option><option value="navigate">Abrir página interna</option><option value="event">Emitir evento do módulo</option><option value="none">Nenhuma</option></select></label>
+<label>Título / descrição curta<input id="title"></label><label>Mensagem / rota / comando<input id="destination"></label>
+<button id="test">Testar ação</button><p class="hint" id="summary"></p></aside></div>
+<dialog id="modal"><h3 id="modalTitle"></h3><p id="modalText"></p><button id="close">Fechar</button></dialog>
+<script src="/js/config.js"></script><script type="module" src="/src/editor.ts"></script></body></html>
