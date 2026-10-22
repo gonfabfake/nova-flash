@@ -22,7 +22,24 @@ fullscreen.onclick = async () => {
 async function start() {
   try {
     const hall = await mountHall(host, id => {
-      document.getElementById('locationTitle')!.textContent = HALL_LOCATIONS[id] ?? id;
+      const cfg = (window as unknown as { HALL_CONFIG?: Array<{name?:string;action?:string;title?:string;destination?:string}> }).HALL_CONFIG ?? [];
+      const item = cfg.find(entry => entry.name === id);
+      if (item?.action === 'none') return;
+      if (item?.action === 'navigate') {
+        const destination = item.destination || '';
+        if (/^\/(?!\/)[\w/\.?#&=%-]+$/.test(destination) && !destination.includes('..')) {
+          const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+          window.location.assign(base + destination);
+        } else console.warn('Destino interno inválido:', destination);
+        return;
+      }
+      if (item?.action === 'event') {
+        document.dispatchEvent(new CustomEvent('ddtank:module', { detail: { id, command: item.destination ?? '' } }));
+        return;
+      }
+      document.getElementById('locationTitle')!.textContent = item?.title || HALL_LOCATIONS[id] || id;
+      const description = dialog.querySelector('p');
+      if (description) description.textContent = item?.destination || 'Este módulo ainda não está disponível.';
       if (!dialog.open) dialog.showModal();
     });
     // Never leave a full-screen loading overlay blocking a partly rendered hall.
