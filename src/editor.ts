@@ -5,6 +5,7 @@ type Legacy = {type:string;name?:string|null;img?:string|null;tx?:number;ty?:num
 const labels:Record<string,string>={shop_mc:'Loja',roomList_mc:'Lista de salas',store_mc:'Armazém',consortia_mc:'Sociedade',hotWell_mc:'Spa',tofflist_mc:'Classificação',campaignLab_mc:'Laboratório',civil_mc:'Centro civil',active_mc:'Atividades',auction_mc:'Leilão',dungeon_mc:'Masmorras',church_mc:'Igreja',lottery_mc:'Loteria'};
 const $=(id:string)=>document.getElementById(id)!;
 const stage=$('stage'),viewport=$('viewport'),objects=$('objects');
+stage.style.backgroundImage='url("'+import.meta.env.BASE_URL+'assets/bg.png")';
 const config=(window as unknown as {HALL_CONFIG?:Legacy[]}).HALL_CONFIG||[];
 let seq=0, selected='',zoom=1;
 const items:Item[]=config.filter(o=>o.type==='symbol'||o.type==='text').map(o=>({uid:'obj'+ ++seq,type:o.type as 'symbol'|'text',name:o.name||'',img:o.img||'',x:o.tx??0,y:o.ty??0,sx:o.scaleX??1,sy:o.scaleY??1,layer:Number(o.layer?.match(/\d+/)?.[0])||seq,rotation:0,visible:true,action:o.name&&!o.name.startsWith('txt_')?'dialog':'none',title:labels[o.name||'']||o.name||'',destination:'Módulo ainda não conectado',symbol:o.symbol??null,text:o.text,size:o.size,color:o.color}));
