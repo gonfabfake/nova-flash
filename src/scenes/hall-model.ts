@@ -16,6 +16,11 @@ export interface HallItem {
   height?: number;
   size?: number;
   color?: string;
+  rotation?: number;
+  visible?: boolean;
+  action?: 'dialog' | 'navigate' | 'event' | 'none';
+  title?: string;
+  destination?: string;
 }
 
 export const HALL_LOCATIONS: Readonly<Record<string, string>> = {
